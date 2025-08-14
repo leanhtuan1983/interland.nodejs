@@ -1,0 +1,15 @@
+.general-container {
+  width: 1324px;
+}
+.top-header,
+.top-navbar,
+.main-content {
+  width: 1294px;
+}
+.top-header {
+  height: 36px;
+}
+.flag {
+  width: 26px;
+  height: 24px;
+}
