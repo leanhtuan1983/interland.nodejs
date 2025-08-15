@@ -1,5 +1,128 @@
 <%- include('../layout/main', { body: `
-<div class="main-content container bg-primary">
-  <h1>12345</h1>
+<div class="banner-slider">
+  <div
+    id="carouselExampleIndicators"
+    class="carousel slide"
+    data-bs-ride="carousel"
+  >
+    <div class="carousel-indicators">
+      <button
+        type="button"
+        data-bs-target="#carouselExampleIndicators"
+        data-bs-slide-to="0"
+        class="active"
+        aria-current="true"
+        aria-label="Slide 1"
+      ></button>
+      <button
+        type="button"
+        data-bs-target="#carouselExampleIndicators"
+        data-bs-slide-to="1"
+        aria-label="Slide 2"
+      ></button>
+      <button
+        type="button"
+        data-bs-target="#carouselExampleIndicators"
+        data-bs-slide-to="2"
+        aria-label="Slide 3"
+      ></button>
+      <button
+        type="button"
+        data-bs-target="#carouselExampleIndicators"
+        data-bs-slide-to="3"
+        aria-label="Slide 4"
+      ></button>
+      <button
+        type="button"
+        data-bs-target="#carouselExampleIndicators"
+        data-bs-slide-to="4"
+        aria-label="Slide 5"
+      ></button>
+    </div>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img
+          src="/img/banners/banner-main.jpg"
+          class="d-block w-100"
+          alt="..."
+        />
+      </div>
+      <div class="carousel-item">
+        <img
+          src="/img/banners/banner-bds.jpg"
+          class="d-block w-100"
+          alt="..."
+        />
+      </div>
+      <div class="carousel-item">
+        <img
+          src="/img/banners/banner-thuongmai.jpg"
+          class="d-block w-100"
+          alt="..."
+        />
+      </div>
+      <div class="carousel-item">
+        <img
+          src="/img/banners/banner-connect.jpg"
+          class="d-block w-100"
+          alt="..."
+        />
+      </div>
+      <div class="carousel-item">
+        <img
+          src="/img/banners/banner-dvgtgt.jpg"
+          class="d-block w-100"
+          alt="..."
+        />
+      </div>
+    </div>
+    <button
+      class="carousel-control-prev"
+      type="button"
+      data-bs-target="#carouselExampleIndicators"
+      data-bs-slide="prev"
+    >
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button
+      class="carousel-control-next"
+      type="button"
+      data-bs-target="#carouselExampleIndicators"
+      data-bs-slide="next"
+    >
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
 </div>
+<div class="intro bg-body-secondary">
+  <div
+    class="container d-md-flex justify-content-between"
+    style="width: 1108px"
+  >
+    <div class="col col-md-8 m-3 py-3">
+      <h4>Công ty CP đầu tư công nghệ và địa ốc Interland</h4>
+      <p class="gnr-text text-wrap">
+        Với đội ngũ nhân sự ưu tú, môi trường làm việc năng động, đề cao giá trị
+        văn hóa doanh nghiệp, <br />theo chúng tôi tự tin sẽ đem đến Khách hàng
+        và Đối tác giá trị tối ưu nhất...
+      </p>
+    </div>
+    <div class="col col-md-4 d-md-flex justify-content-end py-4">
+      <a
+        class="btn m-4 pt-2"
+        href="#"
+        style="
+          width: 120px;
+          height: 44px;
+          background: #eb891a;
+          color: aliceblue;
+        "
+        >Chi tiết <i class="bi bi-chevron-right ms-2"></i
+      ></a>
+    </div>
+  </div>
+</div>
+
 ` }) %>

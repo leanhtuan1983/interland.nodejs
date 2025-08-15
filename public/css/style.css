@@ -1,15 +1,19 @@
+body {
+  font-family: "Monsieur La Doulaise", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
 .general-container {
-  width: 1324px;
+  max-width: 1324px;
 }
 .top-header,
 .top-navbar,
 .main-content {
-  width: 1294px;
+  max-width: 1294px;
 }
 .top-header {
   height: 36px;
 }
-.flag {
-  width: 26px;
-  height: 24px;
+.gnr-text {
+  font-size: 14px;
 }
