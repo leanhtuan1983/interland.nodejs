@@ -32,10 +32,20 @@ app.use(bodyParser.json());
 const pageRoutes = require("./routes/pageRoutes");
 const dashboardRoutes = require("./routes/dashboardRoutes");
 const authenticationRoutes = require("./routes/authenticationRoutes");
+const categoryRoutes = require("./routes/categoryRoutes");
 
-app.use("/home", pageRoutes);
-app.use("/login", authenticationRoutes);
+// Frontend
+app.use("/", pageRoutes);
+
+// Backend
+app.use("/auth", authenticationRoutes);
 app.use("/dashboard", dashboardRoutes);
+app.use("/categories", categoryRoutes);
+
+// Middleware 404
+app.use((req, res) => {
+  res.status(404).send("Page not found");
+});
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
