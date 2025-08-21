@@ -1,32 +1,189 @@
-<%- include('../layout/app', { body: `
-<!-- Nội dung chính -->
 <div class="content">
   <div class="row">
-    <div class="breadcrumb bg-primary-subtle rounded">
-      <h2 class="ms-4 mt-2 mb-2">CATEGORIES</h2>
-    </div>
-  </div>
-  <div class="row d-md-flex">
-    <div class="col col-md-8">
-      <div class="card shadow">
-        <div class="card-header">
-          <h3>Index</h3>
-        </div>
-        <div class="card-body">
-          <p>Danh sách categories</p>
-        </div>
+    <div class="col">
+      <div class="breadcrumb bg-primary-subtle rounded ms-2 me-2">
+        <h2 class="ms-4 mt-2 mb-2 text-info">CATEGORIES</h2>
       </div>
     </div>
-    <div class="col col-md-4">
-      <div class="card shadow">
-        <div class="card-header">
-          <h3>Add new</h3>
+  </div>
+  <div class="row">
+    <div class="d-md-flex justify-content-between">
+      <!-- Bảng danh sách -->
+      <div class="col col-md-9">
+        <div class="card shadow m-2">
+          <div class="card-header">
+            <h3>Danh sách Category</h3>
+          </div>
+          <div class="card-body">
+            <table id="categoryList" class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Parent ID</th>
+                  <th>Status</th>
+                  <th>Avatar</th>
+                  <th>Created By</th>
+                  <th>Created At</th>
+                  <th>Updated At</th>
+                </tr>
+              </thead>
+              <tbody id="categoryListTableBody"></tbody>
+              <tfoot>
+                <tr>
+                  <th>Name</th>
+                  <th>Parent ID</th>
+                  <th>Status</th>
+                  <th>Avatar</th>
+                  <th>Created By</th>
+                  <th>Created At</th>
+                  <th>Updated At</th>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
         </div>
-        <div class="card-body">
-          <p>Thêm mới categories</p>
+      </div>
+
+      <!-- Form thêm mới -->
+      <div class="col col-md-3">
+        <div class="card shadow m-2">
+          <div class="card-header">
+            <h3>Thêm mới</h3>
+          </div>
+          <div class="card-body">
+            <form id="addCategoryForm" enctype="multipart/form-data">
+              <div class="mb-3">
+                <label for="name" class="form-label">Tên Category</label>
+                <input type="text" class="form-control" id="name" name="name" />
+              </div>
+
+              <div class="mb-3">
+                <label for="parent_id" class="form-label">Danh mục cha</label>
+                <select class="form-select" name="parent_id" id="parent_id">
+                  <option value="0">=== Chọn danh mục cha ===</option>
+                </select>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">Trạng thái</label>
+                <div class="d-md-flex">
+                  <div class="form-check me-4">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="status"
+                      value="1"
+                      checked
+                    />
+                    <label class="form-check-label">Bản thảo</label>
+                  </div>
+                  <div class="form-check me-4">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="status"
+                      value="2"
+                    />
+                    <label class="form-check-label">Phát hành</label>
+                  </div>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="status"
+                      value="3"
+                    />
+                    <label class="form-check-label">Lưu trữ</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label for="avatar" class="form-label">Hình ảnh đại diện</label>
+                <input
+                  type="file"
+                  class="form-control"
+                  id="avatar"
+                  name="avatar"
+                />
+              </div>
+
+              <div class="mb-3 d-flex justify-content-center">
+                <img
+                  src="/img/picture.png"
+                  alt="Preview"
+                  style="width: 78%; height: auto"
+                />
+              </div>
+              <button type="submit" class="btn btn-primary">Lưu</button>
+            </form>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-` }) %>
+<script src="/js/loadCategory.js"></script>
+<script>
+  // Load danh sách categories vào dropdown
+  async function loadParentCategories() {
+    try {
+      const response = await fetch("/categories/fetchCategoryList", {
+        credentials: "include", // 👈 gửi kèm cookie session
+      });
+      const data = await response.json();
+
+      const parentSelect = document.getElementById("parent_id");
+
+      if (data.success) {
+        // Giữ option mặc định
+        const defaultOption = parentSelect.options[0];
+        parentSelect.innerHTML = "";
+        parentSelect.appendChild(defaultOption);
+
+        // Thêm các category vào dropdown (chỉ lấy những category không có parent)
+        data.data.forEach((category) => {
+          if (category.parent_id === 0 || category.parent_id === null) {
+            const option = document.createElement("option");
+            option.value = category.id;
+            option.textContent = category.name;
+            parentSelect.appendChild(option);
+          }
+        });
+      }
+    } catch (error) {
+      console.error("Lỗi khi load danh mục cha:", error);
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    loadParentCategories();
+    const form = document.getElementById("addCategoryForm");
+
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      const formData = new FormData(form);
+
+      try {
+        const res = await fetch("/categories/add", {
+          method: "POST",
+          body: formData,
+          credentials: "include", // 👈 gửi cookie session để server nhận ra user
+        });
+
+        const data = await res.json();
+
+        if (data.success) {
+          alert("✅ " + data.message);
+          form.reset();
+        } else {
+          alert("❌ " + data.message);
+        }
+      } catch (err) {
+        console.error(err);
+        alert("❌ Lỗi kết nối server");
+      }
+    });
+  });
+</script>

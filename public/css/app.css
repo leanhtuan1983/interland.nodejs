@@ -1,0 +1,30 @@
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.wrapper {
+  flex: 1;
+  display: flex;
+}
+.sidebar {
+  min-width: 220px;
+  max-width: 220px;
+  background: #343a40;
+  color: #fff;
+}
+.sidebar a {
+  color: #adb5bd;
+  text-decoration: none;
+  display: block;
+  padding: 10px 15px;
+}
+.sidebar a:hover {
+  background: #495057;
+  color: #fff;
+}
+.content {
+  flex: 1;
+  padding: 20px;
+  background: #f8f9fa;
+}

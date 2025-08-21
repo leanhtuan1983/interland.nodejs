@@ -1,5 +1,5 @@
 const db = require("../config/db");
 
 exports.home = (req, res) => {
-  res.render("pages/home", { title: "Trang chủ" });
+  res.render("pages/home", { title: "Trang chủ", layout: "layout/main" });
 };

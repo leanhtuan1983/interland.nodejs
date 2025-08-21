@@ -14,7 +14,7 @@ function query(sql, params) {
 
 // Hiển thị form login
 exports.loginForm = (req, res) => {
-  res.render("authentication/login", { error: null });
+  res.render("authentication/login", { layout: false, error: null });
 };
 
 // Xử lý login
